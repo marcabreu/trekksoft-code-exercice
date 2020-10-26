@@ -1,0 +1,23 @@
+#!/usr/bin/php
+<?php
+
+if (php_sapi_name() !== 'cli') {
+    exit;
+}
+
+require __DIR__ . '/vendor/autoload.php';
+
+use App\App;
+use Helpers\CliOutput;
+
+$output = new CliOutput();
+
+$options = getopt('f:');
+
+if(empty($options['f'])) {
+    $output->display("f param is required with the input file");
+}
+
+$app = new App($options['f']);
+
+$app->run();
